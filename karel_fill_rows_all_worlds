@@ -1,0 +1,56 @@
+# Problem
+from karel.stanfordkarel import *
+"""
+fill each row for the any world and stop on the last position facing to right.
+"""
+
+
+def main():
+    """
+    This is the main loop that keeps Karel moving row by row.
+    While the left is clear, Karel fills the current row, returns to the start,
+    jumps to the next row, and repeats.
+    """
+    while left_is_clear():
+        fill_row()
+        reset()
+        jump_up()
+    fill_row() # Fill the last row
+
+
+# Fills the current row with beepers
+def fill_row():
+    while front_is_clear():
+        put_beeper()
+        move()
+    put_beeper() # Place beeper at the last position
+
+
+# Moves Karel back to the starting position of the current row
+def reset():
+    # First, turn around so Karel can return to the start
+    face_otherside()
+    while front_is_clear():
+        move()
+    face_otherside() # Face the starter direction
+
+
+
+
+# Turns Karel 180 degrees
+def face_otherside():
+    turn_left()
+    turn_left()
+
+# Moves Karel up to the next row and turns to face right again
+def jump_up():
+    turn_left()
+    move()
+    for i in range(3):
+        turn_left()
+
+
+
+
+if __name__ == '__main__':
+    main()
