@@ -1,0 +1,67 @@
+# Problem 
+from karel.stanfordkarel import *
+
+"""
+File: main.py
+--------------------
+Karel should be able to find the midpoint in any size world
+"""
+
+def main():
+    """
+    Karel starts in the bottom left corner of the world, facing east.
+    The world has no interior walls or beepers.
+    The world doesn't need to be square, but you may assume that it is at least
+    as tall as it is wide.
+    If the width of the world is odd, Karel must place a beeper in the center square.
+    If the width is even, Karel should place the beeper on the left of the two center squares.
+    """
+# and final call for just finding the mid point 
+    find_the_midpoint()
+
+
+"""
+Moves Karel to the top-middle column, then down to the bottom of that column.
+Once Karel finds the midpoint, it places a beeper and turns to face right.
+"""
+
+def find_the_midpoint():
+    if no_beepers_present():
+        move_top_corner()
+        turn_around()
+        while front_is_clear():
+            move()
+        put_beeper()
+        turn_left()
+
+"""
+Moves Karel from the bottom left corner to the top of the midpoint column.
+Precondition: Karel is at the bottom-left corner, facing east.
+Postcondition: Karel is at the top of the midpoint column, facing upward.
+"""
+def move_top_corner():
+    while front_is_clear():
+        turn_left()
+        if front_is_clear():
+            move()
+        if front_is_clear():    
+            if no_beepers_present():
+                move()
+                turn_right()
+                move()
+
+# Turns Karel around (180 degrees)
+def turn_around():
+    for i in range(2):
+        turn_left()
+
+# Turns Karel to the right (90 degrees)
+def turn_right():
+    for i in range(3):
+        turn_left()
+
+
+
+
+if __name__ == '__main__':
+    main()
